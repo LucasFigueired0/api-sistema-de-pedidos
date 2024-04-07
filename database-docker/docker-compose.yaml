@@ -1,0 +1,24 @@
+version: '2.19.0'
+
+services:
+  restapi:
+    image: restapi/commons-api:0.0.1
+    ports:
+    - "8080:8080"
+    networks:
+      - commons-api
+    depends_on:
+      - suspicious_bhabha
+  postgres-compose:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "root"
+      POSTGRES_DB: "postgres"
+    ports:
+      - "5431:5432"
+    networks:
+      - commons-api
+networks:
+  commons-api:
+    driver: bridge
